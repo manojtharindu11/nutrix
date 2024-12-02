@@ -5,7 +5,7 @@ export default function RootLayout() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/home");
+    // router.replace("/home");
   }, []);
 
   return (
