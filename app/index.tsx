@@ -5,9 +5,9 @@ export default function Index() {
   return (
     <SafeAreaView style={styles.container}>
       <Text>This is starting page</Text>
-      <Link href={"/home"}>Home</Link>
-      <Link href={"/login"}>Login</Link>
-      <Link href={"/register"}>Register</Link>
+      <Link href={"/pages/home"}>Home</Link>
+      <Link href={"/pages/login"}>Login</Link>
+      <Link href={"/pages/register"}>Register</Link>
     </SafeAreaView>
   );
 }
