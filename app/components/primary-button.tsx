@@ -17,7 +17,7 @@ interface PrimaryButtonProps {
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   title,
   onPress,
-  backgroundColor = "#45B3CB",
+  backgroundColor = "#007BFF",
   textColor = "#FFFFFF",
   loading = false,
 }) => {
@@ -38,15 +38,14 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    padding: 15,
+    backgroundColor: "#007BFF",
     borderRadius: 24,
+    paddingVertical: 16,
     alignItems: "center",
-    justifyContent: "center",
-    marginVertical: 10,
-    marginHorizontal: 24,
+    marginBottom: 24,
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
   },
 });
