@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import PrimaryButton from "../components/primary-button";
@@ -12,11 +13,17 @@ import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
 const LoginScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const handleLoading = () => {
+  const handleLogging = () => {
     setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      Alert.alert("success", "You have successfully logged in!");
+    }, 2000);
   };
 
   const togglePasswordVisibility = () => {
@@ -39,6 +46,8 @@ const LoginScreen = () => {
           style={styles.input}
           placeholder="Email Address"
           keyboardType="email-address"
+          value={email}
+          onChangeText={(text)=>setEmail(text)}
         />
 
         <View style={styles.passwordContainer}>
@@ -67,7 +76,7 @@ const LoginScreen = () => {
           <PrimaryButton
             loading={loading}
             title="Login"
-            onPress={handleLoading}
+            onPress={handleLogging}
           />
         </View>
 
