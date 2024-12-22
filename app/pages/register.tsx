@@ -14,6 +14,8 @@ import { Link } from "expo-router";
 import PrimaryButton from "../components/primary-button";
 import commonStyles from "../common/common-styles";
 import { Image } from "react-native";
+import { useFormContext } from "../services/form-context";
+import Toast from "react-native-toast-message";
 
 const RegisterScreen = () => {
   const [name, setName] = useState("");
@@ -29,6 +31,18 @@ const RegisterScreen = () => {
   const [loading, setLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+
+  const { formData, updateFormData } = useFormContext();
+
+  const showToast = () => {
+    setToastVisible(true);
+
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+      setToastVisible(false);
+    }, 3000);
+  };
 
   // Real-time validation functions
   const validateName = (text: string) => {
@@ -51,6 +65,7 @@ const RegisterScreen = () => {
     setPasswordError(
       text.length >= 6 ? "" : "Password must be at least 6 characters long."
     );
+    setConfirmPasswordError(text === text ? "" : "Passwords do not match.");
   };
 
   const validateConfirmPassword = (text: string) => {
@@ -98,10 +113,16 @@ const RegisterScreen = () => {
 
     // Proceed with signup if no errors
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      Alert.alert("Success", "You have successfully signed up!");
-    }, 2000);
+    const newFormData = { name, email, password };
+    updateFormData(newFormData);
+    console.log("Form data:", newFormData);
+    setLoading(false);
+    // Alert.alert("Success", "You have successfully signed up!");
+    Toast.show({
+      type: "success",
+      text1: "Hello",
+      text2: "This is some something 👋",
+    });
   };
 
   const togglePasswordVisibility = () =>
@@ -136,6 +157,10 @@ const RegisterScreen = () => {
           {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
 
           <TextInput
+            textContentType="emailAddress"
+            autoCorrect={false}
+            autoCapitalize="none"
+            returnKeyType="done"
             style={commonStyles.input}
             placeholder="Email Address"
             keyboardType="email-address"
@@ -146,34 +171,50 @@ const RegisterScreen = () => {
             <Text style={styles.errorText}>{emailError}</Text>
           ) : null}
 
-          {["Password", "Confirm Password"].map((placeholder, index) => (
-            <View key={index} style={commonStyles.passwordContainer}>
-              <TextInput
-                style={[commonStyles.input, { flex: 1 }]}
-                placeholder={placeholder}
-                secureTextEntry={!isPasswordVisible}
-                value={placeholder === "Password" ? password : confirmPassword}
-                onChangeText={
-                  placeholder === "Password"
-                    ? validatePassword
-                    : validateConfirmPassword
-                }
+          {/* Password Field */}
+          <View style={commonStyles.passwordContainer}>
+            <TextInput
+              style={[commonStyles.input, { flex: 1 }]}
+              placeholder="Password"
+              secureTextEntry={!isPasswordVisible}
+              value={password}
+              onChangeText={validatePassword}
+            />
+            <TouchableOpacity
+              style={commonStyles.eyeIcon}
+              onPress={togglePasswordVisibility}
+            >
+              <Ionicons
+                name={isPasswordVisible ? "eye-off" : "eye"}
+                size={24}
+                color="gray"
               />
-              <TouchableOpacity
-                style={commonStyles.eyeIcon}
-                onPress={togglePasswordVisibility}
-              >
-                <Ionicons
-                  name={isPasswordVisible ? "eye-off" : "eye"}
-                  size={24}
-                  color="gray"
-                />
-              </TouchableOpacity>
-            </View>
-          ))}
+            </TouchableOpacity>
+          </View>
           {passwordError ? (
             <Text style={styles.errorText}>{passwordError}</Text>
           ) : null}
+
+          {/* Confirm Password Field */}
+          <View style={commonStyles.passwordContainer}>
+            <TextInput
+              style={[commonStyles.input, { flex: 1 }]}
+              placeholder="Confirm Password"
+              secureTextEntry={!isPasswordVisible}
+              value={confirmPassword}
+              onChangeText={validateConfirmPassword}
+            />
+            <TouchableOpacity
+              style={commonStyles.eyeIcon}
+              onPress={togglePasswordVisibility}
+            >
+              <Ionicons
+                name={isPasswordVisible ? "eye-off" : "eye"}
+                size={24}
+                color="gray"
+              />
+            </TouchableOpacity>
+          </View>
           {confirmPasswordError ? (
             <Text style={styles.errorText}>{confirmPasswordError}</Text>
           ) : null}

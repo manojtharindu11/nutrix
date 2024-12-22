@@ -51,6 +51,10 @@ const LoginScreen = () => {
         <Text style={commonStyles.heading}>Let’s Connect With Us!</Text>
 
         <TextInput
+          textContentType="emailAddress"
+          autoCorrect={false}
+          autoCapitalize="none"
+          returnKeyType="done"
           style={commonStyles.input}
           placeholder="Email Address"
           keyboardType="email-address"
