@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "healthyEat",
-    "slug": "healthyEat",
+    "name": "nutrix",
+    "slug": "nutrix",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "nutrix application",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

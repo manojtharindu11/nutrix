@@ -6,17 +6,22 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  StatusBar,
 } from "react-native";
 import React, { useState } from "react";
 import PrimaryButton from "../components/primary-button";
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  let [fontsLoaded] = useFonts({
+    SpaceMonoRegular: require("../../assets/fonts/SpaceMono-Regular.ttf"),
+  });
 
   const handleLogging = () => {
     setLoading(true);
@@ -32,11 +37,13 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       <ImageBackground
-        source={{ uri: "https://your-image-url.com/image.jpg" }} // Replace with your image URL or local image
+        source={require("../../assets/images/nutrix-background.jpg")}
         style={styles.backgroundImage}
+        resizeMode="cover"
       >
-        <Text style={styles.title}>Health Track</Text>
+        <Text style={styles.title}>Nutrix</Text>
       </ImageBackground>
 
       <View style={styles.formContainer}>
@@ -47,7 +54,7 @@ const LoginScreen = () => {
           placeholder="Email Address"
           keyboardType="email-address"
           value={email}
-          onChangeText={(text)=>setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
         />
 
         <View style={styles.passwordContainer}>
@@ -99,14 +106,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   backgroundImage: {
-    height: "40%",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
+    aspectRatio: 16 / 9,
+    overflow: "hidden",
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    color: "black",
   },
   title: {
     color: "white",
-    fontSize: 36,
-    fontWeight: "bold",
+    fontSize: 56,
+    fontFamily: "SpaceMonoRegular",
+    textAlign: "center",
+    marginHorizontal: 16,
+    textShadowColor: "rgba(0, 0, 0, 0.5)",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    width: "100%",
+    padding: 8,
   },
   formContainer: {
     flex: 1,
