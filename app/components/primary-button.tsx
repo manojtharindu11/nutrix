@@ -12,6 +12,7 @@ interface PrimaryButtonProps {
   backgroundColor?: string;
   textColor?: string;
   loading?: boolean;
+  isDisabled?: boolean;
 }
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -20,12 +21,17 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   backgroundColor = "#007BFF",
   textColor = "#FFFFFF",
   loading = false,
+  isDisabled = true,
 }) => {
   return (
     <TouchableOpacity
-      style={[styles.button, { backgroundColor }]}
+      style={[
+        styles.button,
+        { backgroundColor },
+        isDisabled && styles.buttonDisabled,
+      ]}
       onPress={onPress}
-      disabled={loading}
+      disabled={isDisabled || loading}
     >
       {loading ? (
         <ActivityIndicator size="small" color={textColor} />
@@ -47,6 +53,9 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  buttonDisabled: {
+    backgroundColor: "#d6d8d9",
   },
 });
 
