@@ -37,6 +37,11 @@ const commonStyles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
   },
+  subHeading: {
+    fontSize: 16,
+    color: "#555",
+    marginBottom: 20,
+  },
   input: {
     height: 50,
     borderWidth: 1,

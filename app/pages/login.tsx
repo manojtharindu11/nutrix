@@ -13,6 +13,7 @@ import PrimaryButton from "../components/primary-button";
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
+import commonStyles from "../common/common-styles";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -36,35 +37,35 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <StatusBar barStyle="dark-content" />
       <ImageBackground
         source={require("../../assets/images/nutrix-background.jpg")}
-        style={styles.backgroundImage}
+        style={commonStyles.backgroundImage}
         resizeMode="cover"
       >
-        <Text style={styles.title}>Nutrix</Text>
+        <Text style={commonStyles.title}>Nutrix</Text>
       </ImageBackground>
 
-      <View style={styles.formContainer}>
-        <Text style={styles.heading}>Let’s Connect With Us!</Text>
+      <View style={commonStyles.formContainer}>
+        <Text style={commonStyles.heading}>Let’s Connect With Us!</Text>
 
         <TextInput
-          style={styles.input}
+          style={commonStyles.input}
           placeholder="Email Address"
           keyboardType="email-address"
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
 
-        <View style={styles.passwordContainer}>
+        <View style={commonStyles.passwordContainer}>
           <TextInput
-            style={[styles.input, { flex: 1 }]}
+            style={[commonStyles.input, { flex: 1 }]}
             placeholder="Password"
             secureTextEntry={!isPasswordVisible}
           />
           <TouchableOpacity
-            style={styles.eyeIcon}
+            style={commonStyles.eyeIcon}
             onPress={togglePasswordVisibility}
           >
             <Ionicons
@@ -75,8 +76,8 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.forgotPassword}>
-          <Text style={styles.forgotPasswordText}>Forgot password?</Text>
+        <TouchableOpacity style={commonStyles.forgotPassword}>
+          <Text style={commonStyles.forgotPasswordText}>Forgot password?</Text>
         </TouchableOpacity>
 
         <View>
@@ -101,68 +102,6 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  backgroundImage: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    aspectRatio: 16 / 9,
-    overflow: "hidden",
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16,
-    color: "black",
-  },
-  title: {
-    color: "white",
-    fontSize: 56,
-    fontFamily: "SpaceMonoRegular",
-    textAlign: "center",
-    marginHorizontal: 16,
-    textShadowColor: "rgba(0, 0, 0, 0.5)",
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 4,
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
-    width: "100%",
-    padding: 8,
-  },
-  formContainer: {
-    flex: 1,
-    padding: 24,
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  input: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-  },
-  passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    position: "relative",
-  },
-  eyeIcon: {
-    paddingHorizontal: 8,
-    position: "absolute",
-    right: 10,
-    top: 14,
-  },
-  forgotPassword: {
-    alignSelf: "flex-end",
-    marginBottom: 24,
-  },
-  forgotPasswordText: {
-    color: "#007BFF",
-  },
   signupContainer: {
     flexDirection: "row",
     justifyContent: "center",
