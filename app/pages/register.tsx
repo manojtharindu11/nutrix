@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -20,10 +20,83 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
   const [loading, setLoading] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  // Real-time validation functions
+  const validateName = (text: string) => {
+    setName(text);
+    setNameError(text.trim() ? "" : "Name is required.");
+  };
+
+  const validateEmail = (text: string) => {
+    setEmail(text);
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    setEmailError(text.trim() ? "" : "Email is required.");
+    if (!text.trim()) return;
+    setEmailError(emailRegex.test(text) ? "" : "Enter a valid email address.");
+  };
+
+  const validatePassword = (text: string) => {
+    setPassword(text);
+    setPasswordError(text.trim() ? "" : "Password is required.");
+    if (!text.trim()) return;
+    setPasswordError(
+      text.length >= 6 ? "" : "Password must be at least 6 characters long."
+    );
+  };
+
+  const validateConfirmPassword = (text: string) => {
+    setConfirmPassword(text);
+    setConfirmPasswordError(text === password ? "" : "Passwords do not match.");
+  };
+
+  useEffect(() => {
+    const isFormValid =
+      name.trim() &&
+      email.trim() &&
+      password.trim() &&
+      confirmPassword.trim() &&
+      !nameError &&
+      !emailError &&
+      !passwordError &&
+      !confirmPasswordError;
+
+    setIsButtonDisabled(!isFormValid);
+  }, [
+    name,
+    email,
+    password,
+    confirmPassword,
+    nameError,
+    emailError,
+    passwordError,
+    confirmPasswordError,
+  ]);
+
   const handleSignup = () => {
+    if (
+      !name.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim() ||
+      nameError ||
+      emailError ||
+      passwordError ||
+      confirmPasswordError
+    ) {
+      Alert.alert("Validation Error", "Please fix all validation errors.");
+      return;
+    }
+
+    // Proceed with signup if no errors
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -58,16 +131,20 @@ const RegisterScreen = () => {
             placeholder="Name"
             keyboardType="default"
             value={name}
-            onChangeText={setName}
+            onChangeText={validateName}
           />
+          {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
 
           <TextInput
             style={commonStyles.input}
             placeholder="Email Address"
             keyboardType="email-address"
             value={email}
-            onChangeText={setEmail}
+            onChangeText={validateEmail}
           />
+          {emailError ? (
+            <Text style={styles.errorText}>{emailError}</Text>
+          ) : null}
 
           {["Password", "Confirm Password"].map((placeholder, index) => (
             <View key={index} style={commonStyles.passwordContainer}>
@@ -77,7 +154,9 @@ const RegisterScreen = () => {
                 secureTextEntry={!isPasswordVisible}
                 value={placeholder === "Password" ? password : confirmPassword}
                 onChangeText={
-                  placeholder === "Password" ? setPassword : setConfirmPassword
+                  placeholder === "Password"
+                    ? validatePassword
+                    : validateConfirmPassword
                 }
               />
               <TouchableOpacity
@@ -92,9 +171,16 @@ const RegisterScreen = () => {
               </TouchableOpacity>
             </View>
           ))}
+          {passwordError ? (
+            <Text style={styles.errorText}>{passwordError}</Text>
+          ) : null}
+          {confirmPasswordError ? (
+            <Text style={styles.errorText}>{confirmPasswordError}</Text>
+          ) : null}
 
           <PrimaryButton
             loading={loading}
+            isDisabled={isButtonDisabled}
             title="Sign up"
             onPress={handleSignup}
           />
@@ -144,6 +230,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#007BFF",
     fontWeight: "bold",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 10,
   },
 });
 
