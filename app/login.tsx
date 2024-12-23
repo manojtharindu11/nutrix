@@ -53,11 +53,11 @@ const LoginScreen = () => {
 
   const validatePassword = (text: string) => {
     setPassword(text);
-    setPasswordError(text.trim() ? "" : "Password is required.");
-    if (!text.trim()) return;
-    setPasswordError(
-      text.length >= 6 ? "" : "Password must be at least 6 characters long."
-    );
+    // setPasswordError(text.trim() ? "" : "Password is required.");
+    // if (!text.trim()) return;
+    // setPasswordError(
+    //   text.length >= 6 ? "" : "Password must be at least 6 characters long."
+    // );
   };
 
   const handleLogging = () => {
@@ -69,17 +69,17 @@ const LoginScreen = () => {
     setLoading(true);
     console.log(formData.email, formData.password);
     console.log(email, password);
-    // setTimeout(() => {
-    //   if (!authenticateUser()) {
-    //     setLoading(false);
-    //     setEmail("");
-    //     setPassword("");
-    //     return;
-    //   }
-    //   setLoading(false);
-    //   Alert.alert("success", "You have successfully logged in!");
-    //   routeToHomePage();
-    // }, 3000);
+    setTimeout(() => {
+      if (!authenticateUser()) {
+        setLoading(false);
+        setEmail("");
+        setPassword("");
+        return;
+      }
+      setLoading(false);
+      Alert.alert("success", "You have successfully logged in!");
+      routeToHomePage();
+    }, 3000);
   };
 
   const authenticateUser = () => {
@@ -95,8 +95,10 @@ const LoginScreen = () => {
 
   const routeToHomePage = () => {
     // Navigate to login page
-    console.log("Navigating to home page...");
-    navigation.navigate("/home" as never);
+    setTimeout(() => {
+      console.log("Navigating to home page...");
+      navigation.navigate("home" as never);
+    }, 2000);
   };
 
   const togglePasswordVisibility = () => {

@@ -109,7 +109,6 @@ const RegisterScreen = () => {
       const newFormData = { name, email, password };
       updateFormData(newFormData);
       console.log("Form data:", newFormData);
-      console.log("Context data:", formData);
       setLoading(false);
       Alert.alert("Success", "You have successfully signed up!");
       routeToLogin();
@@ -118,8 +117,10 @@ const RegisterScreen = () => {
 
   const routeToLogin = () => {
     // Navigate to login page
-    console.log("Navigating to login page...");
-    navigation.navigate("pages/login" as never);
+    setTimeout(() => {
+      console.log("Navigating to login page...");
+      navigation.navigate("login" as never);
+    }, 2000);
   };
 
   const togglePasswordVisibility = () =>
