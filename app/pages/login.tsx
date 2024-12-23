@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
   StatusBar,
+  Keyboard,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "../components/primary-button";
@@ -14,12 +15,15 @@ import { Link, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import commonStyles from "../common/common-styles";
+import { useFormContext } from "../services/form-context";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { formData } = useFormContext();
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -56,16 +60,36 @@ const LoginScreen = () => {
   };
 
   const handleLogging = () => {
+    Keyboard.dismiss();
     if (!email.trim() || !password.trim() || emailError || passwordError) {
       Alert.alert("Validation Error", "Please fix all validation errors.");
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      Alert.alert("success", "You have successfully logged in!");
-      routeToHomePage();
-    }, 3000);
+    console.log(formData.email, formData.password);
+    console.log(email, password);
+    // setTimeout(() => {
+    //   if (!authenticateUser()) {
+    //     setLoading(false);
+    //     setEmail("");
+    //     setPassword("");
+    //     return;
+    //   }
+    //   setLoading(false);
+    //   Alert.alert("success", "You have successfully logged in!");
+    //   routeToHomePage();
+    // }, 3000);
+  };
+
+  const authenticateUser = () => {
+    if (formData.email === email && formData.password === password) {
+      return true;
+    } else {
+      Alert.alert(
+        "Invalid Credentials",
+        "Please enter valid email and password."
+      );
+    }
   };
 
   const routeToHomePage = () => {
@@ -110,6 +134,7 @@ const LoginScreen = () => {
             style={[commonStyles.input, { flex: 1 }]}
             placeholder="Password"
             secureTextEntry={!isPasswordVisible}
+            value={password}
             onChangeText={validatePassword}
           />
           <TouchableOpacity
@@ -127,7 +152,15 @@ const LoginScreen = () => {
           <Text style={styles.errorText}>{passwordError}</Text>
         ) : null}
 
-        <TouchableOpacity style={commonStyles.forgotPassword}>
+        <TouchableOpacity
+          style={commonStyles.forgotPassword}
+          onPress={() => {
+            Alert.alert(
+              "Forgot Password",
+              "We are still working on that feature. Please try again later."
+            );
+          }}
+        >
           <Text style={commonStyles.forgotPasswordText}>Forgot password?</Text>
         </TouchableOpacity>
 

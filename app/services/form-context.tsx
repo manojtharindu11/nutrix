@@ -20,7 +20,7 @@ const FormContext = createContext<FormContextType>({
     email: "",
     password: "",
   },
-  updateFormData: () => {}, // Default empty function for update
+  updateFormData: () => {},
 });
 
 // Custom hook to use the FormContext
@@ -33,7 +33,7 @@ interface FormProviderProps {
   children: ReactNode; // Ensure children is of type ReactNode
 }
 
-export const FormProvider = ({ children }: FormProviderProps) => {
+const FormProvider = ({ children }: FormProviderProps) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -51,3 +51,5 @@ export const FormProvider = ({ children }: FormProviderProps) => {
     </FormContext.Provider>
   );
 };
+
+export default FormProvider;

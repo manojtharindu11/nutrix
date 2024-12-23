@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
+  Keyboard,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, useNavigation } from "expo-router";
@@ -74,20 +75,21 @@ const RegisterScreen = () => {
 
   const validatePassword = (text: string) => {
     setPassword(text);
-    setPasswordError(text.trim() ? "" : "Password is required.");
-    if (!text.trim()) return;
-    setPasswordError(
-      text.length >= 6 ? "" : "Password must be at least 6 characters long."
-    );
-    setConfirmPasswordError(text === text ? "" : "Passwords do not match.");
+    // setPasswordError(text.trim() ? "" : "Password is required.");
+    // if (!text.trim()) return;
+    // setPasswordError(
+    //   text.length >= 6 ? "" : "Password must be at least 6 characters long."
+    // );
+    // setConfirmPasswordError(text === text ? "" : "Passwords do not match.");
   };
 
   const validateConfirmPassword = (text: string) => {
     setConfirmPassword(text);
-    setConfirmPasswordError(text === password ? "" : "Passwords do not match.");
+    // setConfirmPasswordError(text === password ? "" : "Passwords do not match.");
   };
 
   const handleSignup = () => {
+    Keyboard.dismiss();
     if (
       !name.trim() ||
       !email.trim() ||
@@ -107,6 +109,7 @@ const RegisterScreen = () => {
       const newFormData = { name, email, password };
       updateFormData(newFormData);
       console.log("Form data:", newFormData);
+      console.log("Context data:", formData);
       setLoading(false);
       Alert.alert("Success", "You have successfully signed up!");
       routeToLogin();
