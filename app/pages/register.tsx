@@ -103,12 +103,14 @@ const RegisterScreen = () => {
     }
 
     setLoading(true);
-    const newFormData = { name, email, password };
-    updateFormData(newFormData);
-    console.log("Form data:", newFormData);
-    setLoading(false);
-    Alert.alert("Success", "You have successfully signed up!");
-    routeToLogin();
+    setTimeout(() => {
+      const newFormData = { name, email, password };
+      updateFormData(newFormData);
+      console.log("Form data:", newFormData);
+      setLoading(false);
+      Alert.alert("Success", "You have successfully signed up!");
+      routeToLogin();
+    }, 3000);
   };
 
   const routeToLogin = () => {
