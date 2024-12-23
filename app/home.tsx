@@ -1,45 +1,88 @@
-// screens/HomeScreen.tsx
-
-import ItemCard from "@/components/card";
-import Item from "@/Interface/item";
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from "react-native";
+import { Button, IconButton } from "react-native-paper";
+import { fetchItems } from "@/services/api";
+import ItemCard from "@/components/card";
+import { Item, ItemWithReact } from "@/Interface/item";
+import UserView from "@/components/user-view";
+import commonStyles from "@/common/common-styles";
 
 const HomeScreen: React.FC = () => {
-  const [items, setItems] = useState<Item[]>([]);
-  const [reactCount, setReactCount] = useState<number>(0); // Define the type of clickCount as number
+  const [items, setItems] = useState<ItemWithReact[]>([]);
+  const [reactCount, setReactCount] = useState<number>(0);
 
-  const handleItemClick = () => {
-    setReactCount(reactCount + 1);
-  };
+  const handleItemClick = useCallback(
+    (item: ItemWithReact) => {
+      item.react = !item.react;
+      setReactCount((prevCount) =>
+        item.react ? prevCount + 1 : prevCount - 1
+      );
+      setItems((prevItems) => [...prevItems]);
+    },
+    [setReactCount, setItems]
+  );
+
+  const handleFetchItems = useCallback(async () => {
+    try {
+      const data: Item[] = await fetchItems();
+      const updatedItems: ItemWithReact[] = data.map((item) => ({
+        ...item,
+        react: false,
+      }));
+      setItems(updatedItems);
+    } catch (error) {
+      Alert.alert("Error fetching items", "Please try again later.");
+      console.error("Error fetching items:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleFetchItems();
+  }, [handleFetchItems]);
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <View style={styles.header}>
-        <Text style={styles.name}>John Doe</Text>
-        <Text style={styles.email}>john.doe@example.com</Text>
+        
+        <TouchableOpacity
+          style={styles.floatingButton}
+          onPress={() => alert(`Reacted items: ${reactCount}`)}
+        >
+          <IconButton iconColor="#ff69b4" icon="heart" size={24} />
+          <Text style={styles.floatingButtonText}>{reactCount}</Text>
+        </TouchableOpacity>
+
+        <IconButton
+          icon="logout"
+          size={24}
+          onPress={() => console.log("Logout pressed")}
+        />
       </View>
+
+      <UserView />
 
       <FlatList
         data={items}
-        keyExtractor={(item) => item.nix_item_id}
+        keyExtractor={(item) => item.nix_item_id.toString()}
         renderItem={({ item }) => (
-          <ItemCard item={item} onPress={handleItemClick} />
+          <ItemCard item={item} onPress={() => handleItemClick(item)} />
         )}
       />
 
-      <TouchableOpacity
-        style={styles.floatingButton}
-        onPress={() => alert("Item clicked count: " + reactCount)}
+      <Button
+        mode="contained"
+        style={styles.reloadButton}
+        onPress={handleFetchItems}
       >
-        <Text style={styles.floatingButtonText}>{reactCount}</Text>
-      </TouchableOpacity>
+        Reload Items
+      </Button>
     </View>
   );
 };
@@ -50,32 +93,30 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f9f9",
   },
   header: {
-    padding: 16,
-    backgroundColor: "#ffffff",
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    flexDirection: "row",
+    justifyContent:"flex-end",
     alignItems: "center",
-  },
-  name: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  email: {
-    fontSize: 16,
-    color: "#888",
+    position: "relative",
+    paddingRight: 16,
+    },
+  logoutButton: {
+    backgroundColor: "#f44336",
   },
   floatingButton: {
-    position: "absolute",
-    bottom: 30,
-    right: 30,
-    backgroundColor: "#ff6347",
-    padding: 20,
-    borderRadius: 50,
-    elevation: 5,
+    flexDirection: "row",
+    padding: 16,
+    alignItems: "center",
+    justifyContent: "center",
   },
   floatingButtonText: {
-    fontSize: 18,
-    color: "#ffffff",
+    flexDirection: "row",
+    fontSize: 14,
+    color: "black",
+    fontWeight: "bold",
+  },
+  reloadButton: {
+    margin: 16,
+    backgroundColor: "#4caf50",
   },
 });
 
