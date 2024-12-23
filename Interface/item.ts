@@ -14,3 +14,5 @@ export default Item;
 interface ItemWithReact extends Item {
     react: boolean;
 }
+
+export { ItemWithReact };
