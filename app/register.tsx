@@ -127,10 +127,9 @@ const RegisterScreen = () => {
 
   return (
     <View>
-      <StatusBar barStyle="dark-content" />
       <View style={styles.backgroundImage}>
         <Image
-          source={require("../../assets/images/vegetables.png")}
+          source={require("../assets/images/vegetables.png")}
           style={{ width: "100%", height: 100, resizeMode: "cover" }}
         />
         <Text style={[commonStyles.title, { backgroundColor: "#323f22" }]}>
@@ -225,7 +224,7 @@ const RegisterScreen = () => {
 
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Do you have an account? </Text>
-            <Link href="/pages/login">
+            <Link href="/login">
               <Text style={styles.loginLink}>Login</Text>
             </Link>
           </View>

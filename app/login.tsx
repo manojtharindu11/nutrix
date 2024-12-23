@@ -8,6 +8,7 @@ import {
   Alert,
   StatusBar,
   Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "../components/primary-button";
@@ -33,7 +34,7 @@ const LoginScreen = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   let [fontsLoaded] = useFonts({
-    SpaceMonoRegular: require("../../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMonoRegular: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -95,7 +96,7 @@ const LoginScreen = () => {
   const routeToHomePage = () => {
     // Navigate to login page
     console.log("Navigating to home page...");
-    navigation.navigate("pages/home" as never);
+    navigation.navigate("/home" as never);
   };
 
   const togglePasswordVisibility = () => {
@@ -103,86 +104,91 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={commonStyles.container}>
-      <StatusBar barStyle="dark-content" />
-      <ImageBackground
-        source={require("../../assets/images/nutrix-background.jpg")}
-        style={commonStyles.backgroundImage}
-        resizeMode="cover"
-      >
-        <Text style={commonStyles.title}>Nutrix</Text>
-      </ImageBackground>
-
-      <View style={commonStyles.formContainer}>
-        <Text style={commonStyles.heading}>Let’s Connect With Us!</Text>
-
-        <TextInput
-          textContentType="emailAddress"
-          autoCorrect={false}
-          autoCapitalize="none"
-          returnKeyType="done"
-          style={commonStyles.input}
-          placeholder="Email Address"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={validateEmail}
-        />
-        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-
-        <View style={commonStyles.passwordContainer}>
-          <TextInput
-            style={[commonStyles.input, { flex: 1 }]}
-            placeholder="Password"
-            secureTextEntry={!isPasswordVisible}
-            value={password}
-            onChangeText={validatePassword}
-          />
-          <TouchableOpacity
-            style={commonStyles.eyeIcon}
-            onPress={togglePasswordVisibility}
-          >
-            <Ionicons
-              name={isPasswordVisible ? "eye-off" : "eye"}
-              size={24}
-              color="gray"
-            />
-          </TouchableOpacity>
-        </View>
-        {passwordError ? (
-          <Text style={styles.errorText}>{passwordError}</Text>
-        ) : null}
-
-        <TouchableOpacity
-          style={commonStyles.forgotPassword}
-          onPress={() => {
-            Alert.alert(
-              "Forgot Password",
-              "We are still working on that feature. Please try again later."
-            );
-          }}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={commonStyles.container}>
+        <ImageBackground
+          source={require("../assets/images/nutrix-background.jpg")}
+          style={commonStyles.backgroundImage}
+          resizeMode="cover"
         >
-          <Text style={commonStyles.forgotPasswordText}>Forgot password?</Text>
-        </TouchableOpacity>
+          <Text style={commonStyles.title}>Nutrix</Text>
+        </ImageBackground>
 
-        <View>
-          <PrimaryButton
-            loading={loading}
-            title="Login"
-            onPress={handleLogging}
-            isDisabled={isButtonDisabled}
+        <View style={commonStyles.formContainer}>
+          <Text style={commonStyles.heading}>Let’s Connect With Us!</Text>
+
+          <TextInput
+            textContentType="emailAddress"
+            autoCorrect={false}
+            autoCapitalize="none"
+            returnKeyType="done"
+            style={commonStyles.input}
+            placeholder="Email Address"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={validateEmail}
           />
-        </View>
+          {emailError ? (
+            <Text style={styles.errorText}>{emailError}</Text>
+          ) : null}
 
-        <View style={styles.signupContainer}>
-          <Text style={styles.signupText}>Don’t have an account? </Text>
-          <TouchableOpacity>
-            <Link href={"/pages/register"}>
-              <Text style={styles.signupLink}>Sign up</Text>
-            </Link>
+          <View style={commonStyles.passwordContainer}>
+            <TextInput
+              style={[commonStyles.input, { flex: 1 }]}
+              placeholder="Password"
+              secureTextEntry={!isPasswordVisible}
+              value={password}
+              onChangeText={validatePassword}
+            />
+            <TouchableOpacity
+              style={commonStyles.eyeIcon}
+              onPress={togglePasswordVisibility}
+            >
+              <Ionicons
+                name={isPasswordVisible ? "eye-off" : "eye"}
+                size={24}
+                color="gray"
+              />
+            </TouchableOpacity>
+          </View>
+          {passwordError ? (
+            <Text style={styles.errorText}>{passwordError}</Text>
+          ) : null}
+
+          <TouchableOpacity
+            style={commonStyles.forgotPassword}
+            onPress={() => {
+              Alert.alert(
+                "Forgot Password",
+                "We are still working on that feature. Please try again later."
+              );
+            }}
+          >
+            <Text style={commonStyles.forgotPasswordText}>
+              Forgot password?
+            </Text>
           </TouchableOpacity>
+
+          <View>
+            <PrimaryButton
+              loading={loading}
+              title="Login"
+              onPress={handleLogging}
+              isDisabled={isButtonDisabled}
+            />
+          </View>
+
+          <View style={styles.signupContainer}>
+            <Text style={styles.signupText}>Don’t have an account? </Text>
+            <TouchableOpacity>
+              <Link href={"/register"}>
+                <Text style={styles.signupLink}>Sign up</Text>
+              </Link>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
