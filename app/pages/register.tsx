@@ -10,14 +10,15 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import PrimaryButton from "../components/primary-button";
 import commonStyles from "../common/common-styles";
 import { Image } from "react-native";
 import { useFormContext } from "../services/form-context";
-import Toast from "react-native-toast-message";
 
 const RegisterScreen = () => {
+  const navigation = useNavigation();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,18 +32,31 @@ const RegisterScreen = () => {
   const [loading, setLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [toastVisible, setToastVisible] = useState(false);
 
   const { formData, updateFormData } = useFormContext();
 
-  const showToast = () => {
-    setToastVisible(true);
+  useEffect(() => {
+    const isFormValid =
+      name.trim() &&
+      email.trim() &&
+      password.trim() &&
+      confirmPassword.trim() &&
+      !nameError &&
+      !emailError &&
+      !passwordError &&
+      !confirmPasswordError;
 
-    // Hide toast after 3 seconds
-    setTimeout(() => {
-      setToastVisible(false);
-    }, 3000);
-  };
+    setIsButtonDisabled(!isFormValid);
+  }, [
+    name,
+    email,
+    password,
+    confirmPassword,
+    nameError,
+    emailError,
+    passwordError,
+    confirmPasswordError,
+  ]);
 
   // Real-time validation functions
   const validateName = (text: string) => {
@@ -73,29 +87,6 @@ const RegisterScreen = () => {
     setConfirmPasswordError(text === password ? "" : "Passwords do not match.");
   };
 
-  useEffect(() => {
-    const isFormValid =
-      name.trim() &&
-      email.trim() &&
-      password.trim() &&
-      confirmPassword.trim() &&
-      !nameError &&
-      !emailError &&
-      !passwordError &&
-      !confirmPasswordError;
-
-    setIsButtonDisabled(!isFormValid);
-  }, [
-    name,
-    email,
-    password,
-    confirmPassword,
-    nameError,
-    emailError,
-    passwordError,
-    confirmPasswordError,
-  ]);
-
   const handleSignup = () => {
     if (
       !name.trim() ||
@@ -111,18 +102,19 @@ const RegisterScreen = () => {
       return;
     }
 
-    // Proceed with signup if no errors
     setLoading(true);
     const newFormData = { name, email, password };
     updateFormData(newFormData);
     console.log("Form data:", newFormData);
     setLoading(false);
-    // Alert.alert("Success", "You have successfully signed up!");
-    Toast.show({
-      type: "success",
-      text1: "Hello",
-      text2: "This is some something 👋",
-    });
+    Alert.alert("Success", "You have successfully signed up!");
+    routeToLogin();
+  };
+
+  const routeToLogin = () => {
+    // Navigate to login page
+    console.log("Navigating to login page...");
+    navigation.navigate("pages/login" as never);
   };
 
   const togglePasswordVisibility = () =>
