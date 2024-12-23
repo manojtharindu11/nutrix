@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
+  Keyboard,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, useNavigation } from "expo-router";
@@ -74,20 +75,21 @@ const RegisterScreen = () => {
 
   const validatePassword = (text: string) => {
     setPassword(text);
-    setPasswordError(text.trim() ? "" : "Password is required.");
-    if (!text.trim()) return;
-    setPasswordError(
-      text.length >= 6 ? "" : "Password must be at least 6 characters long."
-    );
-    setConfirmPasswordError(text === text ? "" : "Passwords do not match.");
+    // setPasswordError(text.trim() ? "" : "Password is required.");
+    // if (!text.trim()) return;
+    // setPasswordError(
+    //   text.length >= 6 ? "" : "Password must be at least 6 characters long."
+    // );
+    // setConfirmPasswordError(text === text ? "" : "Passwords do not match.");
   };
 
   const validateConfirmPassword = (text: string) => {
     setConfirmPassword(text);
-    setConfirmPasswordError(text === password ? "" : "Passwords do not match.");
+    // setConfirmPasswordError(text === password ? "" : "Passwords do not match.");
   };
 
   const handleSignup = () => {
+    Keyboard.dismiss();
     if (
       !name.trim() ||
       !email.trim() ||
@@ -103,18 +105,22 @@ const RegisterScreen = () => {
     }
 
     setLoading(true);
-    const newFormData = { name, email, password };
-    updateFormData(newFormData);
-    console.log("Form data:", newFormData);
-    setLoading(false);
-    Alert.alert("Success", "You have successfully signed up!");
-    routeToLogin();
+    setTimeout(() => {
+      const newFormData = { name, email, password };
+      updateFormData(newFormData);
+      console.log("Form data:", newFormData);
+      setLoading(false);
+      Alert.alert("Success", "You have successfully signed up!");
+      routeToLogin();
+    }, 3000);
   };
 
   const routeToLogin = () => {
     // Navigate to login page
-    console.log("Navigating to login page...");
-    navigation.navigate("pages/login" as never);
+    setTimeout(() => {
+      console.log("Navigating to login page...");
+      navigation.navigate("login" as never);
+    }, 2000);
   };
 
   const togglePasswordVisibility = () =>
@@ -122,10 +128,9 @@ const RegisterScreen = () => {
 
   return (
     <View>
-      <StatusBar barStyle="dark-content" />
       <View style={styles.backgroundImage}>
         <Image
-          source={require("../../assets/images/vegetables.png")}
+          source={require("../assets/images/vegetables.png")}
           style={{ width: "100%", height: 100, resizeMode: "cover" }}
         />
         <Text style={[commonStyles.title, { backgroundColor: "#323f22" }]}>
@@ -220,7 +225,7 @@ const RegisterScreen = () => {
 
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Do you have an account? </Text>
-            <Link href="/pages/login">
+            <Link href="/login">
               <Text style={styles.loginLink}>Login</Text>
             </Link>
           </View>
