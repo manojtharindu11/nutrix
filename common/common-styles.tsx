@@ -66,7 +66,7 @@ const commonStyles = StyleSheet.create({
     marginBottom: 24,
   },
   forgotPasswordText: {
-    color: "#007BFF",
+    color: "#006400",
   },
   signupContainer: {
     flexDirection: "row",

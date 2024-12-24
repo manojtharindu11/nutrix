@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  StatusBar,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -14,7 +13,6 @@ import React, { useEffect, useState } from "react";
 import PrimaryButton from "../components/primary-button";
 import { Link, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { useFonts } from "expo-font";
 import commonStyles from "../common/common-styles";
 import { useFormContext } from "../services/form-context";
 
@@ -32,10 +30,6 @@ const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  let [fontsLoaded] = useFonts({
-    SpaceMonoRegular: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
 
   useEffect(() => {
     const isFormValid =
@@ -204,7 +198,7 @@ const styles = StyleSheet.create({
   },
   signupLink: {
     fontSize: 16,
-    color: "#007BFF",
+    color: "#006400",
     fontWeight: "bold",
   },
   errorText: {

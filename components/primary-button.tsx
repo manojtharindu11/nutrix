@@ -18,7 +18,7 @@ interface PrimaryButtonProps {
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   title,
   onPress,
-  backgroundColor = "#007BFF",
+  backgroundColor = "#006400",
   textColor = "#FFFFFF",
   loading = false,
   isDisabled = true,

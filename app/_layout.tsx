@@ -1,4 +1,5 @@
 import FormProvider from "@/services/form-context";
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import {
   Keyboard,
@@ -8,6 +9,10 @@ import {
 } from "react-native";
 
 export default function RootLayout() {
+  let [fontsLoaded] = useFonts({
+    SpaceMonoRegular: require("../assets/fonts/SpaceMono-Regular.ttf"),
+  });
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <FormProvider>
