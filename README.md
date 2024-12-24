@@ -1,21 +1,44 @@
-# Nutrix
+# Nutrix: Nutrition Data Viewer
 
-A comprehensive guide to setting up and using the Nutrix project.
+**Nutrix** is a lightweight **React-Native** cross-platform application that fetches and displays nutrition data using the Nutritionix API. It also integrates navigation using **Expo Router**, global state management via **Context API**, and data fetching with **Axios**.
+
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- [Features](#features)  
+- [Installation](#installation)  
+- [API Integration](#api-integration)  
+- [Screens](#screens)  
+- [Contributing](#contributing)  
+- [License](#license)  
+- [Contact](#contact)  
+
+
+## Features
+
+- **API Integration**: Fetch nutrition data from [Nutritionix API](https://trackapi.nutritionix.com/v2/search/instant/?query=nutritions).
+- **Three Core Pages**:
+  - **Login**: User authentication with form validation.
+  - **Register**: New user registration with secure form validation.
+  - **Home**: Displays nutrition data fetched from the API.
+- **Global State Management**: Use Context API for managing the app state.
+- **Axios Integration**: Fetch data from the Nutritionix API using Axios.
+- **Expo Router**: Navigation between different pages.
+
 
 ## Installation
 
+### Prerequisites:
+- Ensure **Node.js** and **npm** are installed.
+- Install **Expo CLI** globally:
+    ```bash
+    npm install -g expo-cli
+    ```
+
+### Steps:
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/nutrix.git
+    git clone https://github.com/manojtharindu11/nutrix.git
     ```
 
 2. Navigate to the project directory:
@@ -28,45 +51,70 @@ A comprehensive guide to setting up and using the Nutrix project.
     npm install
     ```
 
-## Usage
-
-1. Start the development server:
+4. Start the development server:
     ```bash
-    npm start
+    expo start
     ```
 
-2. Open the app in your Expo client or simulator.
+5. Use the **Expo Go app** or an emulator to view the app:
+   - **Scan the QR Code**: Open Expo Go and scan the QR code displayed in the terminal.
+   - **Run on Emulator**: Follow Expo's setup instructions for iOS or Android simulators.
 
-## Features
 
-- **Context API**: Manage global state efficiently.
-- **Expo Router**: Navigate through the app seamlessly.
-- **Axios**: Handle HTTP requests with ease.
+## API Integration
+
+The app integrates with the Nutritionix API to fetch real-time nutritional data.  
+
+### API Endpoint:  
+[https://trackapi.nutritionix.com/v2/search/instant/?query=nutritions](https://trackapi.nutritionix.com/v2/search/instant/?query=nutritions)  
+
+### API Keys Configuration:
+Include your API keys in a `.env` file:  
+
+```env
+EXPO_PUBLIC_API_URL=https://trackapi.nutritionix.com/v2/search/instant/?query=nutritions
+EXPO_PUBLIC_X_APP_ID=app-id-get-from-nutritionix
+EXPO_PUBLIC_X_APP_KEY=app-key-get-from-nutritionix
+```
+
+An `.env.example` file is provided to guide the structure of the `.env` file.
+
+## Screens
+
+### 1. **Login Page**  
+Securely logs users in using validated credentials.  
+
+### 2. **Registration Page**  
+Enables new user registration with real-time form validation for name, email, and password fields.  
+
+### 3. **Home Page**  
+Fetches and displays real-time nutrition data from the Nutritionix API in an easy-to-read format.
 
 ## Contributing
 
-We welcome contributions! Follow these steps to contribute:
+We welcome contributions to Nutrix! Here's how you can contribute:  
 
-1. Fork the repository.
-2. Create a new branch:
+1. **Fork** the repository.  
+2. Create a **new branch** for your feature:
     ```bash
-    git checkout -b feature-branch
+    git checkout -b feature/your-feature-name
     ```
-3. Make your changes.
-4. Commit your changes:
+3. **Commit** your changes:
     ```bash
-    git commit -m 'Add some feature'
+    git commit -m "Add your-feature-name"
     ```
-5. Push to the branch:
+4. **Push** to the branch:
     ```bash
-    git push origin feature-branch
+    git push origin feature/your-feature-name
     ```
-6. Open a pull request.
+5. Open a **pull request**, detailing your changes and improvements.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).  
+
 
 ## Contact
 
-For any inquiries, please contact [yourname@example.com](mailto:yourname@example.com).
+Have questions or need support? Feel free to reach out:  
+📧 [manojtharindu11@gmail.com](mailto:manojtharindu11@gmail.com)
