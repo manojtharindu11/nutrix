@@ -90,14 +90,20 @@ An `.env.example` file is provided to guide the structure of the `.env` file.
 
 ## Screens
 
-### 1. **Login Page**  
-Securely logs users in using validated credentials.  
+### 1. **Registration Page**  
+Enables new user registration with real-time form validation for name, email, and password fields. 
 
-### 2. **Registration Page**  
-Enables new user registration with real-time form validation for name, email, and password fields.  
+### 2. **Login Page**  
+Securely logs users in using validated credentials.
 
 ### 3. **Home Page**  
 Fetches and displays real-time nutrition data from the Nutritionix API in an easy-to-read format.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/295358f5-2c2a-4f63-9d8f-ff252179d3e7" alt="Screenshot 2" width="200"/>
+  <img src="https://github.com/user-attachments/assets/2c4ed805-d3ee-48b1-9ddf-3cd37a7479b7" alt="Screenshot" width="200"/>
+  <img src="https://github.com/user-attachments/assets/507dcfbe-6be3-4371-8d93-61689517a86d" alt="Screenshot 1" width="200"/>
+  <img src="https://github.com/user-attachments/assets/51979de1-2b3a-493b-b218-f7c7176af5d8" alt="Screenshot 3" width="200"/>
+</p>
 
 ---
 
