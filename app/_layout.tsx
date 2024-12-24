@@ -1,4 +1,5 @@
 import FormProvider from "@/services/form-context";
+import { ReactCountProvider } from "@/services/react-context";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import {
@@ -16,13 +17,15 @@ export default function RootLayout() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <FormProvider>
-        <StatusBar barStyle="dark-content" />
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="register" options={{ headerShown: false }} />
-          <Stack.Screen name="login" options={{ headerShown: false }} />
-          <Stack.Screen name="home" options={{ headerShown: false }} />
-        </Stack>
+        <ReactCountProvider>
+          <StatusBar barStyle="dark-content" />
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="register" options={{ headerShown: false }} />
+            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen name="home" options={{ headerShown: false }} />
+          </Stack>
+        </ReactCountProvider>
       </FormProvider>
     </TouchableWithoutFeedback>
   );

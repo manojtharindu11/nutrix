@@ -17,22 +17,21 @@ import Item, { ItemWithReact } from "@/Interface/item";
 import UserView from "@/components/user-view";
 import commonStyles from "@/common/common-styles";
 import { useNavigation } from "expo-router";
+import { useReactCount } from "@/services/react-context";
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
   const [items, setItems] = useState<ItemWithReact[]>([]);
-  const [reactCount, setReactCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  const { state, dispatch } = useReactCount();
 
   const handleItemClick = useCallback(
     (item: ItemWithReact) => {
       item.react = !item.react;
-      setReactCount((prevCount) =>
-        item.react ? prevCount + 1 : prevCount - 1
-      );
+      dispatch({ type: item.react ? "increment" : "decrement" });  // Dispatch action to update reactCount
       setItems((prevItems) => [...prevItems]);
     },
-    [setReactCount, setItems]
+    [dispatch, setItems]
   );
 
   const handleFetchItems = useCallback(async () => {
@@ -69,10 +68,10 @@ const HomeScreen: React.FC = () => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.floatingButton}
-          onPress={() => alert(`Reacted items: ${reactCount}`)}
+          onPress={() => alert(`Reacted items: ${state.reactCount}`)}
         >
           <IconButton iconColor="#006400" icon="heart" size={24} />
-          <Text style={styles.floatingButtonText}>{reactCount}</Text>
+          <Text style={styles.floatingButtonText}>{state.reactCount}</Text>
         </TouchableOpacity>
 
         <IconButton icon="logout" size={24} onPress={handleLogout} />
