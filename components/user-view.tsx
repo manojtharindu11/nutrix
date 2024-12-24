@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Avatar, IconButton } from "react-native-paper";
+import { Avatar } from "react-native-paper";
+import { useFormContext } from "@/services/form-context";
 
 const UserView = () => {
+  const { formData } = useFormContext();
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -14,11 +17,13 @@ const UserView = () => {
           style={styles.avatar}
         />
 
-        <View style={styles.greeting}>
-          <Text style={styles.greetingText}>Hi,</Text>
-          <Text style={styles.name}>Gumilar Jae</Text>
-          <Text style={styles.email}>manojtharindu11@gmail.com</Text>
-        </View>
+        {formData.name.length > 0 && formData.email.length > 0 && (
+          <View style={styles.greeting}>
+            <Text style={styles.greetingText}>Hi,</Text>
+            <Text style={styles.name}>{formData.name}</Text>
+            <Text style={styles.email}>{formData.email}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
