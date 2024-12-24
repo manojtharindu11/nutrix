@@ -66,7 +66,7 @@ const HomeScreen: React.FC = () => {
           style={styles.floatingButton}
           onPress={() => alert(`Reacted items: ${reactCount}`)}
         >
-          <IconButton iconColor="#ff69b4" icon="heart" size={24} />
+          <IconButton iconColor="#006400" icon="heart" size={24} />
           <Text style={styles.floatingButtonText}>{reactCount}</Text>
         </TouchableOpacity>
 

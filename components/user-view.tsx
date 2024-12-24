@@ -6,7 +6,6 @@ const UserView = () => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        {/* User Avatar */}
         <Avatar.Image
           size={80}
           source={{
@@ -30,7 +29,7 @@ export default UserView;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16, // Added border radius
+    padding: 16,
   },
   card: {
     borderColor: "#f0f0f0",
@@ -54,17 +53,17 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   greetingText: {
-    fontSize: 18, // Increased font size
-    color: "#495057", // Darker color for better readability
+    fontSize: 18,
+    color: "#495057",
     marginBottom: 4,
   },
   name: {
-    fontSize: 26, // Increased font size
+    fontSize: 26,
     fontWeight: "bold",
     color: "#2d4059",
   },
   email: {
-    fontSize: 16, // Increased font size
+    fontSize: 16,
     color: "#6c757d",
     marginTop: 4,
   },

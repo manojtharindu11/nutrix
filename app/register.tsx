@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     fontSize: 16,
-    color: "#007BFF",
+    color: "#006400",
     fontWeight: "bold",
   },
   errorText: {
