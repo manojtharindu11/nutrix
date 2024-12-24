@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  StatusBar,
   TextInput,
   TouchableOpacity,
   StyleSheet,
@@ -34,7 +33,7 @@ const RegisterScreen = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const { formData, updateFormData } = useFormContext();
+  const { updateFormData } = useFormContext();
 
   useEffect(() => {
     const isFormValid =
@@ -75,17 +74,17 @@ const RegisterScreen = () => {
 
   const validatePassword = (text: string) => {
     setPassword(text);
-    // setPasswordError(text.trim() ? "" : "Password is required.");
-    // if (!text.trim()) return;
-    // setPasswordError(
-    //   text.length >= 6 ? "" : "Password must be at least 6 characters long."
-    // );
-    // setConfirmPasswordError(text === text ? "" : "Passwords do not match.");
+    setPasswordError(text.trim() ? "" : "Password is required.");
+    if (!text.trim()) return;
+    setPasswordError(
+      text.length >= 6 ? "" : "Password must be at least 6 characters long."
+    );
+    setConfirmPasswordError(text === text ? "" : "Passwords do not match.");
   };
 
   const validateConfirmPassword = (text: string) => {
     setConfirmPassword(text);
-    // setConfirmPasswordError(text === password ? "" : "Passwords do not match.");
+    setConfirmPasswordError(text === password ? "" : "Passwords do not match.");
   };
 
   const handleSignup = () => {
@@ -168,7 +167,6 @@ const RegisterScreen = () => {
             <Text style={styles.errorText}>{emailError}</Text>
           ) : null}
 
-          {/* Password Field */}
           <View style={commonStyles.passwordContainer}>
             <TextInput
               style={[commonStyles.input, { flex: 1 }]}
@@ -192,7 +190,6 @@ const RegisterScreen = () => {
             <Text style={styles.errorText}>{passwordError}</Text>
           ) : null}
 
-          {/* Confirm Password Field */}
           <View style={commonStyles.passwordContainer}>
             <TextInput
               style={[commonStyles.input, { flex: 1 }]}

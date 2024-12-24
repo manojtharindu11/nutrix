@@ -47,11 +47,11 @@ const LoginScreen = () => {
 
   const validatePassword = (text: string) => {
     setPassword(text);
-    // setPasswordError(text.trim() ? "" : "Password is required.");
-    // if (!text.trim()) return;
-    // setPasswordError(
-    //   text.length >= 6 ? "" : "Password must be at least 6 characters long."
-    // );
+    setPasswordError(text.trim() ? "" : "Password is required.");
+    if (!text.trim()) return;
+    setPasswordError(
+      text.length >= 6 ? "" : "Password must be at least 6 characters long."
+    );
   };
 
   const handleLogging = () => {
@@ -61,8 +61,6 @@ const LoginScreen = () => {
       return;
     }
     setLoading(true);
-    console.log(formData.email, formData.password);
-    console.log(email, password);
     setTimeout(() => {
       if (!authenticateUser()) {
         setLoading(false);
@@ -88,7 +86,6 @@ const LoginScreen = () => {
   };
 
   const routeToHomePage = () => {
-    // Navigate to login page
     setTimeout(() => {
       console.log("Navigating to home page...");
       navigation.navigate("home" as never);
