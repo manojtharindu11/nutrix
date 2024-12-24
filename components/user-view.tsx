@@ -5,6 +5,7 @@ import { useFormContext } from "@/services/form-context";
 
 const UserView = () => {
   const { formData } = useFormContext();
+  const userImageUri = process.env.EXPO_PUBLIC_USER_IMAGE_URL;
 
   return (
     <View style={styles.container}>
@@ -12,14 +13,14 @@ const UserView = () => {
         <Avatar.Image
           size={80}
           source={{
-            uri: "https://img.freepik.com/free-photo/bohemian-man-with-his-arms-crossed_1368-3542.jpg",
+            uri: userImageUri,
           }}
           style={styles.avatar}
         />
 
         {formData.name.length > 0 && formData.email.length > 0 && (
           <View style={styles.greeting}>
-            <Text style={styles.greetingText}>Hi,</Text>
+            <Text style={styles.greetingText}>Hi there!</Text>
             <Text style={styles.name}>{formData.name}</Text>
             <Text style={styles.email}>{formData.email}</Text>
           </View>

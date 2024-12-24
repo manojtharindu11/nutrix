@@ -1,14 +1,11 @@
 import axios from "axios";
-// Define the API URL and headers
-const API_URL =
-  "https://trackapi.nutritionix.com/v2/search/instant/?query=nutritions";
+const API_URL = process.env.EXPO_PUBLIC_API_URL || "https://trackapi.nutritionix.com/v2/search/instant";
 const API_HEADERS = {
   "Content-Type": "application/json",
-  "x-app-id": "85b396ce", // Replace with your Nutritionix App ID
-  "x-app-key": "487539663ce6295a479d179846643e43", // Replace with your Nutritionix App Key
+  "x-app-id": process.env.EXPO_PUBLIC_X_APP_ID,
+  "x-app-key": process.env.EXPO_PUBLIC_X_APP_KEY,
 };
 
-// Function to fetch items from the Nutritionix API
 export const fetchItems = async () => {
   try {
     const response = await axios.get(API_URL, { headers: API_HEADERS });

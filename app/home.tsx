@@ -60,7 +60,7 @@ const HomeScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    handleFetchItems();
+    // handleFetchItems();
   }, [handleFetchItems]);
 
   return (
