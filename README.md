@@ -58,7 +58,7 @@
 
 4. Start the development server:
     ```bash
-    expo start
+    npx expo start
     ```
 
 5. Use the **Expo Go app** or an emulator to view the app:
