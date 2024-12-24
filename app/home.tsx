@@ -8,6 +8,7 @@ import {
   Alert,
   SafeAreaView,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import { IconButton } from "react-native-paper";
 import { fetchItems } from "@/services/api";
@@ -21,6 +22,7 @@ const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
   const [items, setItems] = useState<ItemWithReact[]>([]);
   const [reactCount, setReactCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleItemClick = useCallback(
     (item: ItemWithReact) => {
@@ -34,6 +36,7 @@ const HomeScreen: React.FC = () => {
   );
 
   const handleFetchItems = useCallback(async () => {
+    setLoading(true);
     try {
       const data: Item[] = await fetchItems();
       const updatedItems: ItemWithReact[] = data.map((item) => ({
@@ -44,6 +47,8 @@ const HomeScreen: React.FC = () => {
     } catch (error) {
       Alert.alert("Error fetching items", "Please try again later.");
       console.error("Error fetching items:", error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -104,17 +109,22 @@ const HomeScreen: React.FC = () => {
           world. Click on the heart icon to save your favorite items.
         </Text>
       </View>
-      <FlatList
-        style={styles.grid}
-        data={items}
-        keyExtractor={(item) => item.nix_item_id.toString()}
-        renderItem={({ item }) => (
-          <ItemCard item={item} onPress={() => handleItemClick(item)} />
-        )}
-        horizontal={true}
-        showsHorizontalScrollIndicator={true}
-        contentContainerStyle={styles.flatListContent}
-      />
+
+      {loading ? (
+        <ActivityIndicator size="large" color="#006400" style={styles.loader} />
+      ) : (
+        <FlatList
+          style={styles.grid}
+          data={items}
+          keyExtractor={(item) => item.nix_item_id.toString()}
+          renderItem={({ item }) => (
+            <ItemCard item={item} onPress={() => handleItemClick(item)} />
+          )}
+          horizontal={true}
+          showsHorizontalScrollIndicator={true}
+          contentContainerStyle={styles.flatListContent}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -171,8 +181,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.1)",
     width: "100%",
     height: 100,
-    justifyContent: "center", // Center text
+    justifyContent: "center",
     alignItems: "center",
+  },
+  loader: {
+    marginTop: 50,
   },
 });
 
