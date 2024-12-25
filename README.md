@@ -11,7 +11,6 @@
 - [Installation](#installation)  
 - [API Integration](#api-integration)  
 - [Screens](#screens)  
-- [Contributing](#contributing)  
 - [License](#license)  
 
 ---
@@ -58,7 +57,7 @@
 
 4. Start the development server:
     ```bash
-    expo start
+    npx expo start
     ```
 
 5. Use the **Expo Go app** or an emulator to view the app:
@@ -106,28 +105,6 @@ Fetches and displays real-time nutrition data from the Nutritionix API in an eas
 </p>
 
 ---
-
-## Contributing
-
-We welcome contributions to Nutrix! Here's how you can contribute:  
-
-1. **Fork** the repository.  
-2. Create a **new branch** for your feature:
-    ```bash
-    git checkout -b feature/your-feature-name
-    ```
-3. **Commit** your changes:
-    ```bash
-    git commit -m "Add your-feature-name"
-    ```
-4. **Push** to the branch:
-    ```bash
-    git push origin feature/your-feature-name
-    ```
-5. Open a **pull request**, detailing your changes and improvements.
-
----
-
 
 ## License
 
