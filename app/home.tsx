@@ -28,7 +28,7 @@ const HomeScreen: React.FC = () => {
   const handleItemClick = useCallback(
     (item: ItemWithReact) => {
       item.react = !item.react;
-      dispatch({ type: item.react ? "increment" : "decrement" });  // Dispatch action to update reactCount
+      dispatch({ type: item.react ? "increment" : "decrement" }); // Dispatch action to update reactCount
       setItems((prevItems) => [...prevItems]);
     },
     [dispatch, setItems]
@@ -74,7 +74,9 @@ const HomeScreen: React.FC = () => {
           <Text style={styles.floatingButtonText}>{state.reactCount}</Text>
         </TouchableOpacity>
 
-        <IconButton icon="logout" size={24} onPress={handleLogout} />
+        <TouchableOpacity>
+          <IconButton icon="logout" size={24} onPress={handleLogout} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.userCard}>

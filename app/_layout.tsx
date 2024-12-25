@@ -3,10 +3,7 @@ import { ReactCountProvider } from "@/services/react-context";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import {
-  Keyboard,
   StatusBar,
-  TouchableWithoutFeedback,
-  View,
 } from "react-native";
 
 export default function RootLayout() {
@@ -15,7 +12,6 @@ export default function RootLayout() {
   });
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <FormProvider>
         <ReactCountProvider>
           <StatusBar barStyle="dark-content" />
@@ -27,6 +23,5 @@ export default function RootLayout() {
           </Stack>
         </ReactCountProvider>
       </FormProvider>
-    </TouchableWithoutFeedback>
   );
 }

@@ -8,6 +8,8 @@ import {
   Alert,
   ScrollView,
   Keyboard,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, useNavigation } from "expo-router";
@@ -126,109 +128,124 @@ const RegisterScreen = () => {
     setIsPasswordVisible((prevState) => !prevState);
 
   return (
-    <View>
-      <View style={styles.backgroundImage}>
-        <Image
-          source={require("../assets/images/vegetables.png")}
-          style={{ width: "100%", height: 100, resizeMode: "cover" }}
-        />
-        <Text style={[commonStyles.title, { backgroundColor: "#323f22" }]}>
-          Nutrix
-        </Text>
-      </View>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <View style={styles.formContainer}>
-          <Text style={commonStyles.heading}>Glad to have you here! 😊</Text>
-          <Text style={commonStyles.subHeading}>
-            Enter your credentials to create an account
-          </Text>
-
-          <TextInput
-            style={commonStyles.input}
-            placeholder="Name"
-            keyboardType="default"
-            value={name}
-            onChangeText={validateName}
-          />
-          {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
-
-          <TextInput
-            textContentType="emailAddress"
-            autoCorrect={false}
-            autoCapitalize="none"
-            returnKeyType="done"
-            style={commonStyles.input}
-            placeholder="Email Address"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={validateEmail}
-          />
-          {emailError ? (
-            <Text style={styles.errorText}>{emailError}</Text>
-          ) : null}
-
-          <View style={commonStyles.passwordContainer}>
-            <TextInput
-              style={[commonStyles.input, { flex: 1 }]}
-              placeholder="Password"
-              secureTextEntry={!isPasswordVisible}
-              value={password}
-              onChangeText={validatePassword}
-            />
-            <TouchableOpacity
-              style={commonStyles.eyeIcon}
-              onPress={togglePasswordVisibility}
-            >
-              <Ionicons
-                name={isPasswordVisible ? "eye-off" : "eye"}
-                size={24}
-                color="gray"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View>
+            <View style={styles.backgroundImage}>
+              <Image
+                source={require("../assets/images/vegetables.png")}
+                style={{ width: "100%", height: 100, resizeMode: "cover" }}
               />
-            </TouchableOpacity>
-          </View>
-          {passwordError ? (
-            <Text style={styles.errorText}>{passwordError}</Text>
-          ) : null}
+              <Text
+                style={[commonStyles.title, { backgroundColor: "#323f22" }]}
+              >
+                Nutrix
+              </Text>
+            </View>
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+              <View style={styles.formContainer}>
+                <Text style={commonStyles.heading}>
+                  Glad to have you here! 😊
+                </Text>
+                <Text style={commonStyles.subHeading}>
+                  Enter your credentials to create an account
+                </Text>
 
-          <View style={commonStyles.passwordContainer}>
-            <TextInput
-              style={[commonStyles.input, { flex: 1 }]}
-              placeholder="Confirm Password"
-              secureTextEntry={!isPasswordVisible}
-              value={confirmPassword}
-              onChangeText={validateConfirmPassword}
-            />
-            <TouchableOpacity
-              style={commonStyles.eyeIcon}
-              onPress={togglePasswordVisibility}
-            >
-              <Ionicons
-                name={isPasswordVisible ? "eye-off" : "eye"}
-                size={24}
-                color="gray"
-              />
-            </TouchableOpacity>
-          </View>
-          {confirmPasswordError ? (
-            <Text style={styles.errorText}>{confirmPasswordError}</Text>
-          ) : null}
+                <TextInput
+                  style={commonStyles.input}
+                  placeholder="Name"
+                  keyboardType="default"
+                  value={name}
+                  onChangeText={validateName}
+                />
+                {nameError ? (
+                  <Text style={styles.errorText}>{nameError}</Text>
+                ) : null}
 
-          <PrimaryButton
-            loading={loading}
-            isDisabled={isButtonDisabled}
-            title="Sign up"
-            onPress={handleSignup}
-          />
+                <TextInput
+                  textContentType="emailAddress"
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  returnKeyType="done"
+                  style={commonStyles.input}
+                  placeholder="Email Address"
+                  keyboardType="email-address"
+                  value={email}
+                  onChangeText={validateEmail}
+                />
+                {emailError ? (
+                  <Text style={styles.errorText}>{emailError}</Text>
+                ) : null}
 
-          <View style={styles.loginContainer}>
-            <Text style={styles.loginText}>Do you have an account? </Text>
-            <Link href="/login">
-              <Text style={styles.loginLink}>Login</Text>
-            </Link>
+                <View style={commonStyles.passwordContainer}>
+                  <TextInput
+                    style={[commonStyles.input, { flex: 1 }]}
+                    placeholder="Password"
+                    secureTextEntry={!isPasswordVisible}
+                    value={password}
+                    onChangeText={validatePassword}
+                  />
+                  <TouchableOpacity
+                    style={commonStyles.eyeIcon}
+                    onPress={togglePasswordVisibility}
+                  >
+                    <Ionicons
+                      name={isPasswordVisible ? "eye-off" : "eye"}
+                      size={24}
+                      color="gray"
+                    />
+                  </TouchableOpacity>
+                </View>
+                {passwordError ? (
+                  <Text style={styles.errorText}>{passwordError}</Text>
+                ) : null}
+
+                <View style={commonStyles.passwordContainer}>
+                  <TextInput
+                    style={[commonStyles.input, { flex: 1 }]}
+                    placeholder="Confirm Password"
+                    secureTextEntry={!isPasswordVisible}
+                    value={confirmPassword}
+                    onChangeText={validateConfirmPassword}
+                  />
+                  <TouchableOpacity
+                    style={commonStyles.eyeIcon}
+                    onPress={togglePasswordVisibility}
+                  >
+                    <Ionicons
+                      name={isPasswordVisible ? "eye-off" : "eye"}
+                      size={24}
+                      color="gray"
+                    />
+                  </TouchableOpacity>
+                </View>
+                {confirmPasswordError ? (
+                  <Text style={styles.errorText}>{confirmPasswordError}</Text>
+                ) : null}
+
+                <PrimaryButton
+                  loading={loading}
+                  isDisabled={isButtonDisabled}
+                  title="Sign up"
+                  onPress={handleSignup}
+                />
+
+                <View style={styles.loginContainer}>
+                  <Text style={styles.loginText}>Do you have an account? </Text>
+                  <Link href="/login">
+                    <Text style={styles.loginLink}>Login</Text>
+                  </Link>
+                </View>
+              </View>
+            </ScrollView>
           </View>
-        </View>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
